@@ -1,12 +1,12 @@
 using UnityEngine;
 using Zenject;
-public class GlobalDependencyInstaller : MonoInstaller
+public class GlobalDependencyInstaller : MonoInstaller // создаем DI для ProjectContext
 {
-    [SerializeField] private QuestList questList; // Ссылка на ScriptableObject со всеми квестами
+    [SerializeField] private QuestList questList;
 
     public override void InstallBindings()
     {
-        // Регистрируем QuestList как глобальную зависимость
+        // прокидываем на QuestList глобальную зависимость
         Container.Bind<QuestList>().FromInstance(questList).AsSingle();
     }
 }

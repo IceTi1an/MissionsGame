@@ -13,11 +13,13 @@ public class QuestItemView : MonoBehaviour
     [SerializeField] private GameObject completedStatusGO;
     [SerializeField] private Button acceptButton;
     [SerializeField] private Button completeButton;
+    // все что выше мы создаем переменные для привязки заданий и дальнейшего их создания
+    // а [SerializeField] делаем чтобы они были видны в Unity чтобы мы могли задать их
 
     private Quest _quest;
     private QuestController _controller;
 
-    [Inject]
+    [Inject] // если быть проще то с помощью данной штуки Zenject находит для метода ниже ему нужный QuestController
     public void Construct(QuestController controller)
     {
         _controller = controller;
@@ -30,6 +32,7 @@ public class QuestItemView : MonoBehaviour
         icon.sprite = quest.icon;
         nameText.text = quest.name;
         descriptionText.text = quest.description;
+        // собираем задание по кусочкам
 
         if (quest.IsCompleted)
         {
@@ -46,8 +49,9 @@ public class QuestItemView : MonoBehaviour
             statusText.text = "Доступен";
             completedStatusGO.SetActive(false);
         }
+        // все что стоит в условных операторах это проверка что если задание принято его можно завершить в противном случае нет
 
-        // Привязываем кнопки
+        // убираем все задачи с кнопок потом задаем им метод которые необходимо запустить при нажатии кнопки
         acceptButton.onClick.RemoveAllListeners();
         acceptButton.onClick.AddListener(() => _controller.AcceptQuest(_quest));
 

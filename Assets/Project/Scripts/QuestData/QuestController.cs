@@ -3,40 +3,44 @@ using Zenject;
 
 public class QuestController : MonoBehaviour
 {
-    private QuestList _questList;   // Ссылка на список всех квестов
-    private QuestView _questView;   // Ссылка на UI, который показывает квесты
+    private QuestList _questList;   // список квестов
+    private QuestView _questView;   // UI который хранит инфу что и как делать с шаблоном
 
-    [Inject]                       // Zenject сам подставит сюда зависимости
+    [Inject]                       //делаем Inject для прокидывания зависимостей через Zenject
     public void Construct(QuestList questList, QuestView questView)
     {
         _questList = questList;
         _questView = questView;
 
-        // Вызов сразу после того, как зависимости внедрены
+        // после внедрения зависимостей сразу обновляем список заданий
         _questView.UpdateView(_questList);
     }
 
-
-    public void AcceptQuest(Quest quest)
+    private void Start()
     {
-        // Считаем сколько активных квестов
+        _questList.ResetAll(); // сбрасываем все значения заданий на старте сцены
+        _questView.UpdateView(_questList);
+    }
+
+    public void AcceptQuest(Quest quest) //метод для принятия задания
+    {
+        // считаем активные квесты
         int activeCount = _questList.Quests.FindAll(q => q.IsAccepted && !q.IsCompleted).Count;
 
-        // Если лимит не превышен — принимаем квест
         if (activeCount < _questList.MaxActiveQuests)
         {
             quest.IsAccepted = true;
-            _questView.UpdateView(_questList); // Обновляем UI
+            _questView.UpdateView(_questList); // обновляем список для обновления данных на сцене и UI заданий
         }
     }
 
-    public void CompleteQuest(Quest quest)
+    public void CompleteQuest(Quest quest) // метод для завершения задания
     {
-        // Если квест был принят и ещё не завершён — завершаем
+        // проверка на то принято ли задание чтобы его завершить или нет.
         if (quest.IsAccepted && !quest.IsCompleted)
         {
             quest.IsCompleted = true;
-            _questView.UpdateView(_questList); // Обновляем UI
+            _questView.UpdateView(_questList);
         }
     }
 }

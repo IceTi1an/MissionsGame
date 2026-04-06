@@ -5,7 +5,7 @@ public class Init_DI : MonoInstaller
 {
     public override void InstallBindings()
     {
-        // Регистрируем контроллер и вью из сцены
+        // Регистрируем контроллер и вью из сцены,а быть точнее из иерархии для прокидывания зависимостей.
         Container.Bind<QuestController>().FromComponentInHierarchy().AsSingle();
         Container.Bind<QuestView>().FromComponentInHierarchy().AsSingle();
     }
