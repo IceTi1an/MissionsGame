@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f93ea945f7e8a54e8f54fc68760683c, type: 3}
+  m_Name: Quest1
+  m_EditorClassIdentifier: 
+  name: First
+  description: It is necessary to prepare a Resume and pet projects for submission
+    to the company for review.
+  icon: {fileID: 21300000, guid: 645db2d3759bcb041a173353f49deee3, type: 3}
+  IsAccepted: 0
+  IsCompleted: 0
